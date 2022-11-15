@@ -7,3 +7,12 @@ declare module 'express' {
     };
   }
 }
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      DB_TYPE: 'mysql' | 'mariadb';
+      DB_PORT: number;
+    }
+  }
+}
