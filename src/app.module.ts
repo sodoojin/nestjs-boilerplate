@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfigService } from './config/database-config.service';
 import { FileSystemStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { basePath } from './helpers/directory';
+import { UserModule } from './modules/user/user.module';
+import './database/polyfill';
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import { basePath } from './helpers/directory';
       storage: FileSystemStoredFile,
       fileSystemStoragePath: basePath('../storage'),
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
