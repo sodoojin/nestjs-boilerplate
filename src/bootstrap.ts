@@ -8,11 +8,14 @@ import sessionConfig from './config/session';
 import * as expressSession from 'express-session';
 import * as flash from 'connect-flash';
 import * as cookieParser from 'cookie-parser';
+import * as methodOverride from 'method-override';
 
 export function boot(app: NestExpressApplication) {
   app.use(expressSession(sessionConfig));
   app.use(flash());
   app.use(cookieParser(sessionConfig.secret));
+
+  app.use(methodOverride('_method'));
 
   app.setBaseViewsDir(basePath('../views'));
   app.setViewEngine('hbs');

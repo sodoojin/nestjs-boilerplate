@@ -39,6 +39,7 @@ specifiers:
   jest: 28.1.3
   jest-when: ^3.5.2
   lodash: ^4.17.21
+  method-override: ^3.0.0
   mysql2: ^2.3.3
   nestjs-form-data: ^1.8.3
   prettier: ^2.7.1
@@ -82,6 +83,7 @@ dependencies:
   hbs: 4.2.0
   jest-when: 3.5.2_jest@28.1.3
   lodash: 4.17.21
+  method-override: 3.0.0
   mysql2: 2.3.3
   nestjs-form-data: 1.8.3_565fa407bb2dc3910955128f408c2420
   reflect-metadata: 0.1.13
@@ -2342,6 +2344,17 @@ packages:
     dependencies:
       ms: 2.0.0
 
+  /debug/3.1.0:
+    resolution: {integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.0.0
+    dev: false
+
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -4221,6 +4234,18 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
     dev: true
+
+  /method-override/3.0.0:
+    resolution: {integrity: sha512-IJ2NNN/mSl9w3kzWB92rcdHpz+HjkxhDJWNDBqSlas+zQdP8wBiJzITPg08M/k2uVvMow7Sk41atndNtt/PHSA==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      debug: 3.1.0
+      methods: 1.1.2
+      parseurl: 1.3.3
+      vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /methods/1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
