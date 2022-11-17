@@ -4,8 +4,16 @@ import * as express from 'express';
 import { ValidationPipe } from '@nestjs/common';
 import { ClassTransformer } from './helpers/class-transformer';
 import * as device from 'express-device';
+import sessionConfig from './config/session';
+import * as expressSession from 'express-session';
+import * as flash from 'connect-flash';
+import * as cookieParser from 'cookie-parser';
 
 export function boot(app: NestExpressApplication) {
+  app.use(expressSession(sessionConfig));
+  app.use(flash());
+  app.use(cookieParser(sessionConfig.secret));
+
   app.setBaseViewsDir(basePath('../views'));
   app.setViewEngine('hbs');
   app.use(device.capture());
