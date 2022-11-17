@@ -1,24 +1,32 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { Repository } from 'typeorm';
+import { User } from '../src/modules/user/entities/user.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { faker } from '@faker-js/faker/locale/ko';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let userRepository: Repository<User>;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    app = global.app;
+    userRepository = app.get(getRepositoryToken(User));
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  it('virtual-column', async () => {
+    const user = userRepository.create();
+    user.firstName = faker.name.firstName();
+    user.lastName = faker.name.lastName();
+    user.email = faker.internet.email();
+    user.password = 'password';
+
+    await userRepository.save(user);
+
+    const selectedUser = await userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.firstName || " " || user.lastName', 'fullName')
+      .getOne();
+
+    expect(selectedUser.fullName).toBe(`${user.firstName} ${user.lastName}`);
   });
 });
