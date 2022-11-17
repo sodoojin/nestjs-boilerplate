@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { SelectQueryBuilder } from 'typeorm';
 import {
   RELATION_COLUMN_KEY,
@@ -40,6 +41,8 @@ SelectQueryBuilder.prototype.getMany = async function () {
 
 SelectQueryBuilder.prototype.getOne = async function () {
   const { entities, raw } = await this.getRawAndEntities();
+  if (entities.length === 0) return null;
+
   const metaInfo = Reflect.getMetadata(VIRTUAL_COLUMN_KEY, entities[0]) ?? {};
 
   for (const [propertyKey, name] of Object.entries<string>(metaInfo)) {

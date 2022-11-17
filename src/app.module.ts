@@ -12,6 +12,7 @@ import './database/polyfill';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env',
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({

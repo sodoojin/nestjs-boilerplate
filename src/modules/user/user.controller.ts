@@ -1,4 +1,4 @@
-import { Controller, Post, Redirect } from '@nestjs/common';
+import { Body, Controller, Post, Redirect } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -8,7 +8,7 @@ export class UserController {
 
   @Post()
   @Redirect('/')
-  async store(dto: CreateUserDto) {
+  async store(@Body() dto: CreateUserDto) {
     await this.userService.create(dto);
   }
 }
