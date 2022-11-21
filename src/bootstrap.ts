@@ -1,7 +1,6 @@
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { basePath } from './helpers/directory';
 import * as express from 'express';
-import { ValidationPipe } from '@nestjs/common';
 import { ClassTransformer } from './helpers/class-transformer';
 import * as device from 'express-device';
 import sessionConfig from './config/session';
@@ -9,6 +8,8 @@ import * as expressSession from 'express-session';
 import * as flash from 'connect-flash';
 import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
+import { BadRequestFilter } from './filters/bad-request.filter';
+import { ValidationPipe } from './pipes/validation.pipe';
 
 export function boot(app: NestExpressApplication) {
   app.use(expressSession(sessionConfig));
@@ -20,6 +21,8 @@ export function boot(app: NestExpressApplication) {
   app.setBaseViewsDir(basePath('../views'));
   app.setViewEngine('hbs');
   app.use(device.capture());
+
+  app.useGlobalFilters(new BadRequestFilter());
 
   device.enableViewRouting(app, {});
 
