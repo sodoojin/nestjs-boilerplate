@@ -5,10 +5,7 @@ import {
 import { TransformerPackage } from '@nestjs/common/interfaces/external/transformer-package.interface';
 import { Type } from '@nestjs/common';
 
-export const ClassTransformer = new (class
-  extends Transformer
-  implements TransformerPackage
-{
+class ClsTransformer extends Transformer implements TransformerPackage {
   classToPlain(
     object: unknown,
     options?: ClassTransformOptions,
@@ -33,4 +30,6 @@ export const ClassTransformer = new (class
      */
     return this.plainToInstance(cls, plain, options);
   }
-})();
+}
+
+export const ClassTransformer = new ClsTransformer();

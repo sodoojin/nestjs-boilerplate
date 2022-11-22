@@ -10,6 +10,8 @@ import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
 import { BadRequestFilter } from './filters/bad-request.filter';
 import { ValidationPipe } from './pipes/validation.pipe';
+import * as exphbs from 'express-handlebars';
+import handlebarsHelpers from './handlebars-helpers';
 
 export function boot(app: NestExpressApplication) {
   app.use(expressSession(sessionConfig));
@@ -18,6 +20,13 @@ export function boot(app: NestExpressApplication) {
 
   app.use(methodOverride('_method'));
 
+  const hbs = exphbs.create({
+    layoutsDir: basePath('../views'),
+    defaultLayout: 'layout',
+    extname: 'hbs',
+    helpers: handlebarsHelpers,
+  });
+  app.engine('hbs', hbs.engine);
   app.setBaseViewsDir(basePath('../views'));
   app.setViewEngine('hbs');
   app.use(device.capture());

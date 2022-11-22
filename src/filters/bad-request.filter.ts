@@ -22,7 +22,7 @@ export class BadRequestFilter implements ExceptionFilter<BadRequestException> {
       });
     } else {
       request.flash('validationErrors', errorMessages);
-      request.flash('old', request.body);
+      request.flash('userOldInputValues', request.body);
       response.redirect(request.headers.referer ?? '/');
     }
   }

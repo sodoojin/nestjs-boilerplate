@@ -1,0 +1,34 @@
+<style>
+    .input-box {
+        margin-bottom: 20px;
+    }
+
+    .input-box input {
+        width: 100%;
+    }
+
+    .danger {
+        border: 1px solid red;
+    }
+</style>
+
+<form method="post" action="{{url '/sample/validation'}}">
+    <div class="input-box {{#hasError 'id'}} danger {{/hasError}}">
+        <input aria-label="아이디" type="text" name="id" value="{{old 'id' '기본 값'}}">
+        <!-- 에러 메시지 1개 출력 -->
+        {{error 'id'}}
+    </div>
+
+    <div class="input-box {{#hasError 'name'}} danger {{/hasError}}">
+        <input aria-label="이름" type="text" name="name" value="{{old 'name' ''}}">
+
+        <!-- 에러 메시지 여러개 출력 -->
+        <ul>
+            {{#errors 'name'}}
+                <li>{{errorMessage}}</li>
+            {{/errors}}
+        </ul>
+    </div>
+
+    <button type="submit">입력</button>
+</form>
