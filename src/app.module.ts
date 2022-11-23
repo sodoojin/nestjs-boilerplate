@@ -4,8 +4,6 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfigService } from './config/database-config.service';
@@ -31,8 +29,8 @@ import { InjectableValidators } from './validators';
     }),
     SampleModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, ...InjectableValidators],
+  controllers: [],
+  providers: [...InjectableValidators],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
