@@ -14,7 +14,7 @@ import { basePath } from './helpers/directory';
 import './database/polyfill';
 import { ValidationMiddleware } from './middlewares/validation.middleware';
 import { SampleModule } from './modules/sample/sample.module';
-import { InjectableValidators } from './validators/injectable-validators';
+import { InjectableValidators } from './validators';
 
 @Module({
   imports: [
