@@ -41,6 +41,7 @@
     "connect-flash": "^0.1.1",
     "connect-memcached": "^2.0.0",
     "cookie-parser": "^1.4.6",
+    "cooky-cutter": "^1.5.4",
     "dotenv": "^16.0.3",
     "env-cmd": "^10.1.0",
     "express": "^4.18.2",
