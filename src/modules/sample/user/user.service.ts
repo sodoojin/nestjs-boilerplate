@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserInterface } from './types/create-user.interface';
-import { hash } from '../../helpers/cipher';
+import { hash } from '../../../helpers/cipher';
 
 @Injectable()
 export class UserService {

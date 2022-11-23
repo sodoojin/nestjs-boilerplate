@@ -2,7 +2,7 @@ import * as request from 'supertest';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { faker } from '@faker-js/faker/locale/ko';
 import { Repository } from 'typeorm';
-import { User } from '../../src/modules/user/entities/user.entity';
+import { User } from '../../src/modules/sample/user/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as _ from 'lodash';
 

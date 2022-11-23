@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { VirtualColumn } from '../../../database/decorators/virtual-column';
+import { VirtualColumn } from '../../../../database/decorators/virtual-column';
 
 @Entity()
 export class User {

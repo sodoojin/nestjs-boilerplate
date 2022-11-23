@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from '../src/modules/user/entities/user.entity';
+import { User } from '../src/modules/sample/user/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { faker } from '@faker-js/faker/locale/ko';
 

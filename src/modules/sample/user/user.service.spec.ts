@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { faker } from '@faker-js/faker/locale/ko';
-import { hash } from '../../helpers/cipher';
+import { hash } from '../../../helpers/cipher';
 import { when } from 'jest-when';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
