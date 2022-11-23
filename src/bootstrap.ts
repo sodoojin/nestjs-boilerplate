@@ -12,6 +12,8 @@ import { BadRequestFilter } from './filters/bad-request.filter';
 import { ValidationPipe } from './pipes/validation.pipe';
 import * as exphbs from 'express-handlebars';
 import handlebarsHelpers from './handlebars-helpers';
+import { useContainer } from 'class-validator';
+import { AppModule } from './app.module';
 
 export function boot(app: NestExpressApplication) {
   app.use(expressSession(sessionConfig));
@@ -58,4 +60,6 @@ export function boot(app: NestExpressApplication) {
       transformerPackage: ClassTransformer,
     }),
   );
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 }

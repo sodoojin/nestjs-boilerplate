@@ -11,11 +11,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfigService } from './config/database-config.service';
 import { FileSystemStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { basePath } from './helpers/directory';
-import { UserModule } from './modules/sample/user/user.module';
 import './database/polyfill';
 import { ValidationMiddleware } from './middlewares/validation.middleware';
-import { ValidationModule } from './modules/sample/validation/validation.module';
-import { CqrsModule } from './modules/sample/cqrs/cqrs.module';
+import { SampleModule } from './modules/sample/sample.module';
+import { InjectableValidators } from './validators/injectable-validators';
 
 @Module({
   imports: [
@@ -30,12 +29,10 @@ import { CqrsModule } from './modules/sample/cqrs/cqrs.module';
       storage: FileSystemStoredFile,
       fileSystemStoragePath: basePath('../storage'),
     }),
-    UserModule,
-    ValidationModule,
-    CqrsModule,
+    SampleModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ...InjectableValidators],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

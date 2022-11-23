@@ -2,7 +2,7 @@ import { Body, Controller, Post, Redirect } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
-@Controller('user')
+@Controller('sample/user')
 export class UserController {
   constructor(private userService: UserService) {}
 
