@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { faker } from '@faker-js/faker/locale/ko';
+import { faker } from '@faker-js/faker';
 import { Repository } from 'typeorm';
 import { User } from '../../../src/modules/sample/user/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -44,9 +44,11 @@ describe('sample/CqrsController (e2e)', () => {
       });
 
     expect(response.status).toEqual(200);
-    expect(response.body.map((body) => _.omit(body, 'fullName'))).toEqual([
+    expect(
+      response.body.map((body) => _.omit(body, 'fullName', 'articles')),
+    ).toEqual([
       {
-        ..._.omit(user, 'fullName'),
+        ..._.omit(user, 'fullName', 'articles'),
         createdAt: user.createdAt.toISOString(),
         updatedAt: user.updatedAt.toISOString(),
       },

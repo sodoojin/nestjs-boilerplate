@@ -123,11 +123,6 @@ describe('AuthController (e2e)', () => {
       await request(app.getHttpServer())
         .get('/test/auth/everyone/read')
         .expect(200);
-
-      await request(app.getHttpServer())
-        .get('/test/auth/everyone/update')
-        .set('x-requested-with', 'XMLHttpRequest')
-        .expect(200);
     });
 
     it('권한 없음', async () => {

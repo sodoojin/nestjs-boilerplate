@@ -7,7 +7,7 @@ import { hash } from '../../../helpers/cipher';
 import { when } from 'jest-when';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
-jest.mock('../../helpers/cipher');
+jest.mock('../../../helpers/cipher');
 
 const mockUserRepository = () => ({
   create: jest.fn(),
