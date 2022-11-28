@@ -5,7 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 export async function createApplication() {
   const moduleFixture: TestingModule = await Test.createTestingModule({
-    imports: [AppModule],
+    imports: [AppModule, ...(global.testingModules ?? [])],
   }).compile();
 
   const app = moduleFixture.createNestApplication<NestExpressApplication>();

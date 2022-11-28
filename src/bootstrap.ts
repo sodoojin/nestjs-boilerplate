@@ -14,6 +14,8 @@ import * as exphbs from 'express-handlebars';
 import handlebarsHelpers from './handlebars-helpers';
 import { useContainer } from 'class-validator';
 import { AppModule } from './app.module';
+import { DefaultFilter } from './filters/default.filter';
+import { AuthenticationFilter } from './filters/authentication.filter';
 
 export function boot(app: NestExpressApplication) {
   app.use(expressSession(sessionConfig));
@@ -33,7 +35,11 @@ export function boot(app: NestExpressApplication) {
   app.setViewEngine('hbs');
   app.use(device.capture());
 
-  app.useGlobalFilters(new BadRequestFilter());
+  app.useGlobalFilters(
+    new DefaultFilter(),
+    new BadRequestFilter(),
+    new AuthenticationFilter(),
+  );
 
   device.enableViewRouting(app, {});
 

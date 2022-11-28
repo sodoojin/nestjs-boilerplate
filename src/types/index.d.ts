@@ -1,7 +1,27 @@
 import 'express';
 import '@nestjs/common';
-import { HttpException } from '@nestjs/common';
+import { CustomDecorator, HttpException } from '@nestjs/common';
 import { HttpExceptionOptions } from '@nestjs/common/exceptions/http.exception';
+import { AnyClass, AnyObject } from '@casl/ability/dist/types/types';
+import { AuthorizableRequest } from 'nest-casl/dist/interfaces/request.interface';
+import {
+  SubjectBeforeFilterHook,
+  SubjectBeforeFilterTuple,
+} from 'nest-casl/dist/interfaces/hooks.interface';
+
+declare module 'nest-casl' {
+  export declare function UseAbility<
+    Subject = AnyObject,
+    Request = AuthorizableRequest,
+  >(
+    action: string,
+    subject: AnyClass<Subject>,
+    subjectHook?:
+      | AnyClass<SubjectBeforeFilterHook<Subject, Request>>
+      | SubjectBeforeFilterTuple<Subject, Request>
+      | string,
+  ): CustomDecorator;
+}
 
 declare module 'express' {
   interface Request {

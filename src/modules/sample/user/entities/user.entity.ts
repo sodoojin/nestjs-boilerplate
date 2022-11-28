@@ -2,10 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { VirtualColumn } from '../../../../database/decorators/virtual-column';
+import { Article } from '../../article/entities/article.entity';
 
 @Entity()
 export class User {
@@ -32,4 +34,7 @@ export class User {
 
   @VirtualColumn()
   fullName: string;
+
+  @OneToMany(() => Article, (article) => article.user)
+  articles: Article[];
 }

@@ -11,4 +11,5 @@ export const userFactory = define<User>({
   createdAt: () => faker.date.past(),
   updatedAt: () => faker.date.future(),
   fullName: null,
+  articles: () => [],
 });

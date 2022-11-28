@@ -13,6 +13,9 @@ import './database/polyfill';
 import { ValidationMiddleware } from './middlewares/validation.middleware';
 import { SampleModule } from './modules/sample/sample.module';
 import { InjectableValidators } from './validators';
+import { CaslModule } from 'nest-casl';
+import { Roles } from './app.roles';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -27,7 +30,11 @@ import { InjectableValidators } from './validators';
       storage: FileSystemStoredFile,
       fileSystemStoragePath: basePath('../storage'),
     }),
+    CaslModule.forRoot<Roles>({
+      getUserFromRequest: (request) => request.user,
+    }),
     SampleModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [...InjectableValidators],
