@@ -6,14 +6,18 @@ import { User } from '../../../src/modules/sample/user/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as _ from 'lodash';
 import { userFactory } from '../../../src/database/factories/user.factory';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/common';
 
 describe('sample/CqrsController (e2e)', () => {
   let app: NestExpressApplication;
   let userRepository: Repository<User>;
+  let cacheManager: Cache;
 
   beforeEach(async () => {
     app = global.app;
     userRepository = app.get(getRepositoryToken(User));
+    cacheManager = app.get(CACHE_MANAGER);
   });
 
   it('/ (POST)', async () => {
@@ -53,5 +57,50 @@ describe('sample/CqrsController (e2e)', () => {
         updatedAt: user.updatedAt.toISOString(),
       },
     ]);
+  });
+
+  it('/search-cache (GET)', async () => {
+    expect(await cacheManager.get('GetCqrsCacheHandler')).toEqual(undefined);
+
+    const user = await userRepository.save(userFactory({ id: null }));
+
+    await request(app.getHttpServer())
+      .get('/sample/cqrs/search-cache')
+      .expect([
+        {
+          ..._.omit(user, 'fullName', 'articles'),
+          createdAt: user.createdAt.toISOString(),
+          updatedAt: user.updatedAt.toISOString(),
+        },
+      ]);
+
+    const user2 = await userRepository.save(userFactory({ id: null }));
+
+    await request(app.getHttpServer())
+      .get('/sample/cqrs/search-cache')
+      .expect([
+        {
+          ..._.omit(user, 'fullName', 'articles'),
+          createdAt: user.createdAt.toISOString(),
+          updatedAt: user.updatedAt.toISOString(),
+        },
+      ]);
+
+    await cacheManager.del('GetCqrsCacheHandler');
+
+    await request(app.getHttpServer())
+      .get('/sample/cqrs/search-cache')
+      .expect([
+        {
+          ..._.omit(user, 'fullName', 'articles'),
+          createdAt: user.createdAt.toISOString(),
+          updatedAt: user.updatedAt.toISOString(),
+        },
+        {
+          ..._.omit(user2, 'fullName', 'articles'),
+          createdAt: user2.createdAt.toISOString(),
+          updatedAt: user2.updatedAt.toISOString(),
+        },
+      ]);
   });
 });

@@ -4,6 +4,7 @@ import { CreateCqrsCommand } from './commands/create-cqrs.command';
 import { GetCqrsQuery } from './queries/get-cqrs.query';
 import { CreateCqrsDto } from './dto/create-cqrs.dto';
 import { SearchCqrsDto } from './dto/search-cqrs.dto';
+import { GetCqrsCacheQuery } from './queries/get-cqrs-cache.query';
 
 @Controller('sample/cqrs')
 export class CqrsController {
@@ -24,5 +25,10 @@ export class CqrsController {
   @Get('search')
   public async search(@Query() dto: SearchCqrsDto) {
     return this.queryBus.execute(new GetCqrsQuery(dto.email));
+  }
+
+  @Get('search-cache')
+  public async searchCache() {
+    return this.queryBus.execute(new GetCqrsCacheQuery());
   }
 }

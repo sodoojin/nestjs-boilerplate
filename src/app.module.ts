@@ -1,4 +1,5 @@
 import {
+  CacheModule,
   MiddlewareConsumer,
   Module,
   NestModule,
@@ -16,6 +17,7 @@ import { InjectableValidators } from './validators';
 import { CaslModule } from 'nest-casl';
 import { Roles } from './app.roles';
 import { AuthModule } from './modules/auth/auth.module';
+import cacheConfig from './config/cache';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { AuthModule } from './modules/auth/auth.module';
     CaslModule.forRoot<Roles>({
       getUserFromRequest: (request) => request.user,
     }),
+    CacheModule.register(cacheConfig),
     SampleModule,
     AuthModule,
   ],
