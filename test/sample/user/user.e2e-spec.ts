@@ -11,7 +11,7 @@ describe('sample/UserController (e2e)', () => {
   let userRepository: Repository<User>;
 
   beforeEach(async () => {
-    app = global.app;
+    app = globalThis.app;
     userRepository = app.get(getRepositoryToken(User));
   });
 

@@ -15,7 +15,7 @@ describe('sample/CqrsController (e2e)', () => {
   let cacheManager: Cache;
 
   beforeEach(async () => {
-    app = global.app;
+    app = globalThis.app;
     userRepository = app.get(getRepositoryToken(User));
     cacheManager = app.get(CACHE_MANAGER);
   });

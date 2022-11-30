@@ -85,11 +85,11 @@ describe('AuthController (e2e)', () => {
   let userRepository: Repository<User>;
 
   beforeAll(() => {
-    global.testingModules = [TestModule];
+    globalThis.testing.modules = [TestModule];
   });
 
   beforeEach(() => {
-    app = global.app;
+    app = globalThis.app;
     userRepository = app.get(getRepositoryToken(User));
   });
 

@@ -11,7 +11,7 @@ describe('sample/ValidationController (e2e)', () => {
   let user: User;
 
   beforeEach(async () => {
-    app = global.app;
+    app = globalThis.app;
     userRepository = app.get(getRepositoryToken(User));
 
     user = await userRepository.save(
