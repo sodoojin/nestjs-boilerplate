@@ -19,6 +19,9 @@ export class Article {
   @Column()
   content: string;
 
+  @Column()
+  image: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

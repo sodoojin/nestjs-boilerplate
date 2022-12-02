@@ -8,6 +8,34 @@ import {
   SubjectBeforeFilterHook,
   SubjectBeforeFilterTuple,
 } from 'nest-casl/dist/interfaces/hooks.interface';
+import { User } from '../modules/sample/user/entities/user.entity';
+import { ObjectLiteral } from 'typeorm';
+import { QueryBuilder } from 'typeorm/query-builder/QueryBuilder';
+import { WhereExpressionBuilder } from 'typeorm/query-builder/WhereExpressionBuilder';
+
+declare module 'typeorm' {
+  interface PaginateResult {
+    itemKeys: Array<any>;
+    meta: {
+      itemCount: number;
+      totalItemCount: number;
+      itemsPerPage: number;
+      totalPages: number;
+      currentPage: number;
+    };
+  }
+
+  export declare class SelectQueryBuilder<Entity extends ObjectLiteral>
+    extends QueryBuilder<Entity>
+    implements WhereExpressionBuilder
+  {
+    paginate(
+      page: number,
+      perPage: number,
+      keyColumn: string,
+    ): Promise<PaginateResult>;
+  }
+}
 
 declare module 'nest-casl' {
   export declare function UseAbility<
@@ -29,6 +57,7 @@ declare module 'express' {
       type: 'desktop' | 'phone' | 'tablet' | 'tv' | 'bot' | 'car';
     };
     flash: CallableFunction;
+    user: User;
   }
 
   interface Response {

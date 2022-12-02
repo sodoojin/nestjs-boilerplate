@@ -51,3 +51,30 @@ SelectQueryBuilder.prototype.getOne = async function () {
 
   return entities[0];
 };
+
+SelectQueryBuilder.prototype.paginate = async function (
+  page: number,
+  limit: number,
+  keyColumn: string,
+) {
+  if (page <= 0) page = 1;
+
+  const newQuery = this.clone()
+    .take(limit)
+    .offset(limit * (page - 1));
+
+  const totalItemCount = await newQuery.getCount();
+  const items = await newQuery.getRawMany();
+  const itemKeys = items.map((entity) => entity[keyColumn]);
+
+  return {
+    itemKeys,
+    meta: {
+      itemCount: itemKeys.length,
+      totalItemCount,
+      itemsPerPage: limit,
+      totalPages: Math.ceil(totalItemCount / limit),
+      currentPage: page,
+    },
+  };
+};

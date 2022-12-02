@@ -5,8 +5,8 @@ import { Roles } from '../../../app.roles';
 type Subjects = InferSubjects<typeof Article>;
 
 export const permissions: Permissions<Roles, Subjects, Actions> = {
-  everyone({ can, cannot }) {
+  everyone({ can, user }) {
     can(Actions.read, Article);
-    cannot(Actions.create, Article);
+    can(Actions.update, Article, { userId: user.id });
   },
 };

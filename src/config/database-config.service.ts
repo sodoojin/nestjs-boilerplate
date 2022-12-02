@@ -13,6 +13,8 @@ export class DatabaseConfigService implements TypeOrmOptionsFactory {
       database: process.env.DB_DATABASE,
       synchronize: false,
       autoLoadEntities: true,
+      logging: true,
+      logger: 'file',
     };
   }
 }

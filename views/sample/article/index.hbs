@@ -1,0 +1,27 @@
+{{#with searchDto}}
+    <form action="{{url '/sample/article'}}">
+        제목 : <input type="text" name="title" value="{{title}}"> <br />
+        내용 : <input type="text" name="content" value="{{content}}"> <br />
+        <button type="submit">검색</button>
+    </form>
+{{/with}}
+
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>제목</th>
+        <th>생성일</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each articles.items}}
+        <tr>
+            <td></td>
+            <td>{{title}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+<a href="{{url '/sample/article/create'}}">추가</a>

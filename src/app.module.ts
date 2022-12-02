@@ -22,6 +22,7 @@ import nestjsFormDataConfig from './config/nestjs-form-data';
 import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3 } from 'aws-sdk';
 import { FileStorageModule } from './modules/file-storage/file-storage.module';
+import { GLOBAL_CONFIG_INJECT_TOKEN } from 'nestjs-form-data/dist/config/global-config-inject-token.config';
 
 @Module({
   imports: [
@@ -32,7 +33,17 @@ import { FileStorageModule } from './modules/file-storage/file-storage.module';
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConfigService,
     }),
-    NestjsFormDataModule.config(nestjsFormDataConfig),
+    {
+      global: true,
+      module: NestjsFormDataModule,
+      providers: [
+        {
+          provide: GLOBAL_CONFIG_INJECT_TOKEN,
+          useValue: nestjsFormDataConfig,
+        },
+      ],
+    },
+    // NestjsFormDataModule.config(nestjsFormDataConfig),
     CaslModule.forRoot<Roles>({
       getUserFromRequest: (request) => request.user,
     }),

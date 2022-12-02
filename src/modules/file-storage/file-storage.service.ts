@@ -20,7 +20,7 @@ export class FileStorageService {
   async delete(destination: string): Promise<boolean> {
     return this.s3
       .deleteObject({
-        Key: path.join(this.s3BasePath, destination),
+        Key: destination,
         Bucket: this.s3Bucket,
       })
       .promise()

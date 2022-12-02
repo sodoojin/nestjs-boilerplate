@@ -1,0 +1,29 @@
+<form method="post" action="{{url '/sample/article'}}" enctype="multipart/form-data">
+    타이틀 : <input type="text" name="title" value="{{old 'title' ''}}"> <br />
+    {{#hasError 'title'}}
+        <div class="danger">
+            {{error 'title'}}
+        </div>
+    {{/hasError}}
+    내용 : <input type="text" name="content" value="{{old 'content' ''}}"> <br />
+    {{#hasError 'content'}}
+        <div class="danger">
+            {{error 'content'}}
+        </div>
+    {{/hasError}}
+    이미지 : <input type="file" name="image"> <br />
+    {{#hasError 'image'}}
+        <div class="danger">
+            {{error 'image'}}
+        </div>
+    {{/hasError}}
+    <button type="submit">저장</button>
+</form>
+
+{{#extend 'css'}}
+    <style>
+        .danger {
+            color: red;
+        }
+    </style>
+{{/extend}}

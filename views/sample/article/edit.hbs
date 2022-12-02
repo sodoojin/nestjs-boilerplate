@@ -1,0 +1,7 @@
+<form method="post" action="{{url '/sample/article/' article.id }}?_method=put" enctype="multipart/form-data">
+    타이틀 : <input type="text" name="title" value="{{old 'title' article.title}}"> <br />
+    내용 : <input type="text" name="content" value="{{old 'content' article.content}}"> <br />
+    이미지 : <input type="file" name="image"> <br />
+    <img src="{{image article.image}}">
+    <button type="submit">저장</button>
+</form>

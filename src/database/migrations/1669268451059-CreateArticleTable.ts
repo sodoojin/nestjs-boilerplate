@@ -30,6 +30,11 @@ export class CreateArticleTable1669268451059 implements MigrationInterface {
             length: '255',
           },
           {
+            name: 'image',
+            type: 'varchar',
+            length: '255',
+          },
+          {
             name: 'createdAt',
             type: 'datetime',
           },

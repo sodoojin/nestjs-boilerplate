@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { define } from 'cooky-cutter';
 
 export const userFactory = define<User>({
-  id: 1,
+  id: null,
   firstName: () => faker.name.firstName(),
   lastName: () => faker.name.lastName(),
   email: () => faker.internet.email(),
