@@ -120,7 +120,7 @@ describe('FileStorageService', () => {
 
       when(s3.deleteObject)
         .calledWith({
-          Key: path.join('AWS_S3_BASE_PATH', filePath),
+          Key: filePath,
           Bucket: 'AWS_S3_BUCKET',
         })
         .mockReturnValueOnce({
@@ -137,7 +137,7 @@ describe('FileStorageService', () => {
 
       when(s3.deleteObject)
         .calledWith({
-          Key: path.join('AWS_S3_BASE_PATH', filePath),
+          Key: filePath,
           Bucket: 'AWS_S3_BUCKET',
         })
         .mockReturnValueOnce({
