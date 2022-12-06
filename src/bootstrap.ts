@@ -26,7 +26,7 @@ export function boot(app: NestExpressApplication) {
 
   const hbs = exphbs.create({
     layoutsDir: basePath('../views'),
-    defaultLayout: 'layout',
+    defaultLayout: 'layouts/layout',
     extname: 'hbs',
     helpers: handlebarsHelpers,
   });
