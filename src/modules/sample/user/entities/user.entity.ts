@@ -8,9 +8,11 @@ import {
 } from 'typeorm';
 import { VirtualColumn } from '../../../../database/decorators/virtual-column';
 import { Article } from '../../article/entities/article.entity';
+import { AuthorizableUser } from 'nest-casl';
+import { Roles } from '../../../../app.roles';
 
 @Entity()
-export class User {
+export class User implements AuthorizableUser<Roles, number> {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -37,4 +39,6 @@ export class User {
 
   @OneToMany(() => Article, (article) => article.user)
   articles: Article[];
+
+  roles: Roles[];
 }
