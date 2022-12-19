@@ -10,6 +10,7 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { TokenAuthGuard } from '../../auth/guards/token-auth.guard';
@@ -27,6 +28,9 @@ import { Repository } from 'typeorm';
 import { Response } from 'express';
 import { UpdateArticleCommand } from './commands/update-article.command';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { MapInterceptor } from '../../../interceptors/map.interceptor';
+import { JsonIndexResponseDto } from './dto/response/json-index-response.dto';
+import { JsonIndexSingleResponseDto } from './dto/response/json-index-single-response.dto';
 
 @Controller('sample/article')
 export class ArticleController {
@@ -97,5 +101,25 @@ export class ArticleController {
       articles,
       searchDto,
     };
+  }
+
+  @Get('json')
+  @UseInterceptors(new MapInterceptor(['private']))
+  async jsonIndex(@Query() searchDto: SearchArticleDto) {
+    const articles = await this.queryBus.execute(
+      new PaginateArticleListQuery(searchDto),
+    );
+
+    return new JsonIndexResponseDto(articles.items, articles.meta);
+  }
+
+  @Get('json-single')
+  @UseInterceptors(new MapInterceptor(['private']))
+  async jsonIndexSingle(@Query() searchDto: SearchArticleDto) {
+    const articles = await this.queryBus.execute(
+      new PaginateArticleListQuery(searchDto),
+    );
+
+    return new JsonIndexSingleResponseDto(articles.items[0]);
   }
 }

@@ -34,10 +34,7 @@ export class ArticleService {
       );
     }
 
-    article = {
-      ...article,
-      ..._.omit(dto, ['image']),
-    };
+    Object.assign(article, _.omit(dto, ['image']));
 
     return this.articleRepository.save(article);
   }
