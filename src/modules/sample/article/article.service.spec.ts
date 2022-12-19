@@ -99,7 +99,8 @@ describe('ArticleService', () => {
       } as UpdateArticle;
       const article = articleFactory(),
         savedArticle = articleFactory();
-      const uploadedImage = 'path/to/image.jpg';
+      const uploadedImage = 'path/to/image.jpg',
+        oldImage = article.image;
 
       when(fileStorage.upload)
         .calledWith(dto.image, 'article')
@@ -111,14 +112,9 @@ describe('ArticleService', () => {
         })
         .mockResolvedValueOnce(savedArticle);
 
-      await service.update(
-        {
-          ...article,
-        },
-        dto,
-      );
+      await service.update(article, dto);
 
-      expect(fileStorage.delete).toHaveBeenCalledWith(article.image);
+      expect(fileStorage.delete).toHaveBeenCalledWith(oldImage);
     });
 
     it('이미지 없음', async () => {
@@ -136,12 +132,7 @@ describe('ArticleService', () => {
         })
         .mockResolvedValueOnce(savedArticle);
 
-      await service.update(
-        {
-          ...article,
-        },
-        dto,
-      );
+      await service.update(article, dto);
 
       expect(fileStorage.delete).not.toHaveBeenCalled();
     });

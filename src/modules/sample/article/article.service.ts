@@ -34,9 +34,10 @@ export class ArticleService {
       );
     }
 
-    Object.assign(article, _.omit(dto, ['image']));
+    const newArticle = {};
+    Object.assign(newArticle, article, _.omit(dto, ['image']));
 
-    return this.articleRepository.save(article);
+    return this.articleRepository.save(newArticle);
   }
 
   async delete(article: Article) {
