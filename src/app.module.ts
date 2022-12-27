@@ -23,6 +23,7 @@ import { AwsSdkModule } from 'nest-aws-sdk';
 import { S3 } from 'aws-sdk';
 import { FileStorageModule } from './modules/file-storage/file-storage.module';
 import { GLOBAL_CONFIG_INJECT_TOKEN } from 'nestjs-form-data/dist/config/global-config-inject-token.config';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { GLOBAL_CONFIG_INJECT_TOKEN } from 'nestjs-form-data/dist/config/global-
     SampleModule,
     AuthModule,
     FileStorageModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [...InjectableValidators],
