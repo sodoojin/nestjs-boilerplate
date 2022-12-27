@@ -5,6 +5,8 @@ import { Request } from 'express';
 import * as crypto from 'crypto';
 import jwtDecode from 'jwt-decode';
 import { ConfigService } from '@nestjs/config';
+import { AuthenticationException } from '../../../exceptions/authentication.exception';
+import { hoUrl, url } from '../../../handlebars-helpers/url';
 
 @Injectable()
 export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {
@@ -21,6 +23,13 @@ export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {
     } else {
       accessToken = req.cookies['biz_atk'];
       refreshToken = req.cookies['biz_rtk'];
+    }
+
+    if (!accessToken || !refreshToken) {
+      throw new AuthenticationException(
+        '로그인을 해주세요',
+        hoUrl(`/login?URL=${encodeURIComponent(url(req.url))}`),
+      );
     }
 
     return jwtDecode(

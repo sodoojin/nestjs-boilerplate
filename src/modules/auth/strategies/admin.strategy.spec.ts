@@ -2,6 +2,8 @@ import * as crypto from 'crypto';
 import jwtDecode from 'jwt-decode';
 import { when } from 'jest-when';
 import { AdminStrategy } from './admin.strategy';
+import { AuthenticationException } from '../../../exceptions/authentication.exception';
+import { hoUrl, url } from '../../../handlebars-helpers/url';
 
 const createHash = {
   update: jest.fn(),
@@ -21,7 +23,12 @@ jest.mock('jwt-decode', () => ({
   default: jest.fn(),
 }));
 
-describe('TokenStrategy', () => {
+jest.mock('../../../handlebars-helpers/url', () => ({
+  hoUrl: jest.fn(),
+  url: jest.fn(),
+}));
+
+describe('AdminStrategy', () => {
   const accessToken = 'accessToken';
   const refreshToken = 'refreshToken';
 
@@ -162,5 +169,24 @@ describe('TokenStrategy', () => {
     when(req.header).calledWith('biz_rtk').mockReturnValue(null);
 
     await business(req);
+  });
+
+  it('token 없음', async () => {
+    const req = {
+      header: jest.fn(),
+      cookies: {},
+    };
+
+    when(req.header).calledWith('biz_atk').mockReturnValue(null);
+    when(req.header).calledWith('biz_rtk').mockReturnValue(null);
+
+    when(hoUrl).mockReturnValue('ho-url');
+    when(url).mockReturnValue('url');
+
+    const strategy = new AdminStrategy(configService);
+
+    await expect(async () => {
+      await strategy.validate(req as any);
+    }).rejects.toThrowError(AuthenticationException);
   });
 });
