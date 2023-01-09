@@ -2,8 +2,8 @@ import * as crypto from 'crypto';
 import jwtDecode from 'jwt-decode';
 import { when } from 'jest-when';
 import { AdminStrategy } from './admin.strategy';
-import { AuthenticationException } from '../../../exceptions/authentication.exception';
-import { hoUrl, url } from '../../../handlebars-helpers/url';
+import { AuthenticationException } from '../../../../exceptions/authentication.exception';
+import { hoUrl, url } from '../../../../handlebars-helpers/url';
 
 const createHash = {
   update: jest.fn(),

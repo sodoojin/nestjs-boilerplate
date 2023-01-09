@@ -109,7 +109,6 @@ dependencies:
   nest-aws-sdk: 3.0.0_sljsmhdjnztdsj7jhcgz7epfiy
   nest-casl: 1.8.1_t5srd4df4lwne3rdkgdwsairda
   nestjs-form-data: 1.8.6_julm3j7w5b4g4aof5bqmy2uj7u
-  node-mocks-http: 1.12.1
   passport: 0.6.0
   passport-custom: 1.1.1
   reflect-metadata: 0.1.13
@@ -133,6 +132,7 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@8.30.0
   eslint-plugin-prettier: 4.2.1_kl4pe43v5b43npmso5hoplpbyi
   jest: 28.1.3_b6etc7xurivcjmbbbvo5ydauxy
+  node-mocks-http: 1.12.1
   prettier: 2.8.1
   source-map-support: 0.5.21
   supertest: 6.3.3
@@ -2535,7 +2535,6 @@ packages:
   /depd/1.1.2:
     resolution: {integrity: sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==}
     engines: {node: '>= 0.6'}
-    dev: false
 
   /depd/2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
@@ -4798,7 +4797,7 @@ packages:
       parseurl: 1.3.3
       range-parser: 1.2.1
       type-is: 1.6.18
-    dev: false
+    dev: true
 
   /node-releases/2.0.8:
     resolution: {integrity: sha512-dFSmB8fFHEH/s81Xi+Y/15DQY6VHW81nXRj86EMSL3lmuTmK1e+aT4wrFCkTbm+gSwkw4KpX+rT/pMM2c1mF+A==}

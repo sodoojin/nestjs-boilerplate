@@ -5,8 +5,8 @@ import { Request } from 'express';
 import * as crypto from 'crypto';
 import jwtDecode from 'jwt-decode';
 import { ConfigService } from '@nestjs/config';
-import { AuthenticationException } from '../../../exceptions/authentication.exception';
-import { hoUrl, url } from '../../../handlebars-helpers/url';
+import { AuthenticationException } from '../../../../exceptions/authentication.exception';
+import { hoUrl, url } from '../../../../handlebars-helpers/url';
 
 @Injectable()
 export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {
@@ -21,6 +21,11 @@ export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {
       accessToken = req.header('biz_atk');
       refreshToken = req.header('biz_rtk');
     } else {
+      /**
+       * TODO php set_login 메소드에서 쿠키 path를 변경해야 쿠키 값 받을 수 있음.
+       * setrawcookie("biz_rtk", $r_token, 0, "/", $this->cookie_domain);
+       * setrawcookie("biz_atk", $a_token, 0, "/", $this->cookie_domain);
+       */
       accessToken = req.cookies['biz_atk'];
       refreshToken = req.cookies['biz_rtk'];
     }

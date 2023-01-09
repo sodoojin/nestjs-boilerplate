@@ -3,6 +3,7 @@ import { isAjax } from '../helpers/request';
 import { Request, Response } from 'express';
 import { AuthenticationException } from '../exceptions/authentication.exception';
 import { UnauthorizedException } from '../exceptions/unauthorized.exception';
+import { memberUrl, url } from '../handlebars-helpers/url';
 
 @Catch(AuthenticationException, UnauthorizedException)
 export class AuthenticationFilter
@@ -20,7 +21,19 @@ export class AuthenticationFilter
       response.status(401).send();
     } else {
       request.flash('alertMessage', exception.message);
-      response.redirect(exception.redirectUrl ?? '/');
+
+      if (exception instanceof AuthenticationException) {
+        response.redirect(
+          exception.redirectUrl ??
+            memberUrl(
+              `/auth/login?referer=${encodeURIComponent(url(request.url))}`,
+            ),
+        );
+      } else {
+        response.redirect(
+          request.headers.referer ?? exception.redirectUrl ?? '/',
+        );
+      }
     }
   }
 }

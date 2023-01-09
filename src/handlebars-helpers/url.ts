@@ -1,24 +1,39 @@
 import * as path from 'path';
+import { extractOptionsArgument } from './helper';
+import * as process from 'process';
 
 const dummyFunction = (p) => p;
 const removeHttp = (p) => p.replace(/https?:/, '');
 
-export function url(...urlList: string[]) {
+function parseUrl(args: any[], baseUrl) {
+  const [urlList] = extractOptionsArgument(args);
   let fn = dummyFunction;
-  let baseUrl = process.env.BASE_URL;
   if (!baseUrl.startsWith('http')) {
     fn = removeHttp;
     baseUrl = 'http:' + baseUrl;
   }
 
+  const baseUrlParts = baseUrl.split('/');
+  baseUrl = baseUrlParts.splice(0, 3).join('/');
+
   return fn(
     new URL(
-      path.join(
-        ...urlList.slice(0, urlList.length - 1).map((v) => v.toString()),
-      ),
+      path.join(...baseUrlParts, ...urlList.map((v) => v.toString())),
       baseUrl,
     ).toString(),
   );
+}
+
+export function url(...args: any[]) {
+  return parseUrl(args, process.env.BASE_URL);
+}
+
+export function memberUrl(...args: any[]) {
+  return parseUrl(args, process.env.MEMBER_URL);
+}
+
+export function hoUrl(...args: any[]) {
+  return parseUrl(args, process.env.HO_URL);
 }
 
 export function image(p: string) {
